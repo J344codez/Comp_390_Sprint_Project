@@ -1,7 +1,7 @@
 #James Kanagat
 
-Role today: Developer
+Role today: developer
 One thing I want to learn about GitHub:
--- How github can be used for collaborating on a single project
+-- How Github can be used for collaboration on projects
 One project idea I'm interested in:
---(WIP)
+-- (WIP)
