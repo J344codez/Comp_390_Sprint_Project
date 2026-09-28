@@ -1,5 +1,5 @@
 # Comp_390_Sprint_Project
 
-Edited by Mo
-
 Creating conflict
+Edited in Mo's branch
+
