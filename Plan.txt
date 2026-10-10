@@ -1,0 +1,26 @@
+Class: User                                 //store user data
+--Attributes: username, fname, lname, age, gender, height, startWeight, targetWeight
+            List<DailyLog>                  //DailyLog objects will contain daily activities.
+            regDate(LocalDate), currWeight
+Getters and setters for appropriate attributes.
+-----------------Helper methods:
+calculateBMI(weight, height): double
+getDaysBet(from_LocalDate, to_LocalDate): int
+getWkNum(from_LocalDate, to_LocalDate): int
+addLog(entry: DailyLog): void           //Update currWeight here
+
+====================================================================================================
+Class: DailyLog                             //Records daily activities
+---------Attributes:
+date: LocalDate
+weight: double
+caloriesConsumed: int
+caloriesBurned: int
+getNetCalories(): int
+
+--------------Helper Methods:
+getWeightDiff(weight_goal): double
+getProgress(weight_goal): double(%)         //((start_weight - log_weight)/start_weight - goal) * 100
+
+======================================================================================================
+
