@@ -36,7 +36,8 @@ public class App {
         });
 
         VBox box = new VBox(10, area, button);
-        this.scene = new Scene(box, 800, 200);
+        this.scene = new Scene(box, 800, 600);
+
     }
 
     public Scene getScene() {return this.scene; };
