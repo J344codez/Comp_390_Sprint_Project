@@ -111,7 +111,7 @@ public class DailyLog implements Comparable<DailyLog> {
 //------------------Helper methods-----------------------------------------------
 
     public void reCal() {           //Pass an instance of "this" to Calculator
-        setBmi(Calculator.calcBmi(this));                   //Calculate BMI
+        setBmi(Calculator.calcBmi(this.weight, this.user.getHeight()));                   //Calculate BMI
         setCalsBurned(Calculator.calcCalsBurned(this));     //Calculate calories burned
     }
 
