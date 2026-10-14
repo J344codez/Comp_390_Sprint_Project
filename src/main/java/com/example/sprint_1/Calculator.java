@@ -4,6 +4,7 @@ Date        Name        Edits
 ====        ====        ========================================
 10/11       Mo          Created class.
                         Added calsBurned overloaded methods and delegation method using log instance.
+10/12       Mo          Added method to calculate current progress.
 
 
  */
@@ -45,6 +46,20 @@ public final class Calculator {
 
     }
 
+    //Calculate user progress --------- //((start_weight - log_weight)/start_weight - goal) * 100
+    public static double calcProgress(User user) {
+        if (user.getCurrWeight() == user.getTargetWeight() || user.getStartWeight() == user.getTargetWeight())
+            return 100.0;       //Check if goal has been reached
+
+        double curDif = user.getStartWeight() - user.getCurrWeight();
+        double origDif = user.getStartWeight() - user.getTargetWeight();
+
+        if (curDif <= 0) return 0.0;                                        //Check if no progress has been made
+
+        return (curDif/origDif) * 100;
+
+    }
+
 
 //-------------------Helper Methods-----------------------------------------------------------------------------
 
@@ -81,7 +96,7 @@ public final class Calculator {
     }
 
     //Method to decide which calcCalsBurned to use - given log data
-    public int calcCalsBurned(DailyLog log) {
+    public static int calcCalsBurned(DailyLog log) {
         if (log.getWoDuration() != null && log.getWoDuration() > 0) {
             //cals burned = steps + workout
             return calcCalsBurned(log.getWorkout(), log.getWoDuration(),log.getSteps(), log.getWeight());
@@ -89,5 +104,7 @@ public final class Calculator {
         //cals burned from steps only
         return calcCalsBurned(log.getSteps(), log.getWeight());
     }
+
+
 
 }

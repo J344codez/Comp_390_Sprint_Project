@@ -9,6 +9,7 @@ Date        Name        Edits
 ====        ====        ========================================
 10/9        Mo          Created class, added attributes
 10/10       Mo          Added core structure - getters/setters, helper methods
+10/12       Mo          Added methods to get first/last log and progress dynamically
 
 
  */
@@ -133,8 +134,22 @@ public class User {
     }
 
     public double getCurBMI() {                    //Return BMI using current weight
-        return Calculator.calculateBMI(this.currWeight, this.height);
+        return Calculator.calcBmi(this.currWeight, this.height);
     }
+
+    public DailyLog getOldestLog() {
+        if (logs.isEmpty()) return null;
+        return logs.getFirst();
+    }
+    public DailyLog getLatestLog() {
+        if (logs.isEmpty()) return null;
+        return logs.getLast();
+    }
+
+    //Get current progress
+    public double getProgress() {
+        if (targetWeight == 0) throw new IllegalArgumentException("No goal set.");
+        return Calculator.calcProgress(this); }
 
 //-------------------------Helper methods-------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -144,7 +159,7 @@ public class User {
 
         this.logs.add(log);                             //Append the log list
         Collections.sort(this.logs);                    //sort by date
-        this.currWeight = logs.getLast().getWeight();   //Update weight the most recent log
+        setCurrWeight(logs.getLast().getWeight());      //Update current_weight the most recent log
     }
 
     public void removeAllLogs() { this.logs.clear(); }      //Clear logs
