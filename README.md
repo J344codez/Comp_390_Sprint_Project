@@ -1,5 +1,7 @@
 # Comp_390_Sprint_Project
 
-Creating conflict
-Edited in Mo's branch
+Edited by Mo and Jeff
 
+10/10/26 - Profile Page pull request description:
+Using Java Swing components, switch statement, and event handling
+a basic UI was made in order to give the user an option between profiles
