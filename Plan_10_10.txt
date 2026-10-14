@@ -1,0 +1,41 @@
+Class: User                                 //store user data
+--Attributes: username, fname, lname, age, gender, height, startWeight, targetWeight
+            List<DailyLog>                  //DailyLog objects will contain daily activities.
+            regDate(LocalDate), currWeight
+Getters and setters for appropriate attributes.
+-----------------Helper methods:
+
+addLog(entry: DailyLog): void           //Update currWeight here
+removeAllLogs(): void                   //Clear all logs
+removeLog(date): boolean                //Remove log(s) given specific date
+====================================================================================================
+Class: DailyLog implements Comparable<DailyLog>                //Records daily activities
+---------Attributes:
+user: User
+date: LocalDate
+weight: double
+caloriesConsumed: int
+caloriesBurned: int
+
+-----------Methods
+getNetCalories(): int
+getWeightDiff(weight_goal): double
+getProgress(weight_goal): double(%)         //((start_weight - log_weight)/start_weight - goal) * 100
+
+Needed method - compareTo               //Needed for sort
+
+======================================================================================================
+Final Class: Calculator                //Utility class to convert and calculate
+
+--private constructor           //Prevent instantiation
+
+--Methods to easily convert one metric to another
+    Will be utilized for view and calculations - e.g., BMI, Cals burned, graphs
+--Suggested Methods
+printDate(LocalDate): String - use date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))
+calculateBMI(weight, height): double
+getDaysBet(from_LocalDate, to_LocalDate): int
+getWkNum(from_LocalDate, to_LocalDate): int
+
+
+======================================================================================================
