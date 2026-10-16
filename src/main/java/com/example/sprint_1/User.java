@@ -165,46 +165,4 @@ public class User {
         return removed;                                     //Return false if no log found for the date.
     }
 
-
-
-
-
-// ------------------------Map Implementation------------------------------------------------
-
-    // USER create and store map of all users + their data
-    // search and map username to User obj
-    public HashMap<String, User> usersMap = new HashMap<>();
-
-
-    public void registerUser(User user) // adds new map every time new user added
-    {
-        // needs to accept user/file input and create User obj, then
-        // pair that User obj w/ userName and put into Map of all users
-        usersMap.putIfAbsent(user.userName, user);
-    }
-    public User getUserData(String userName) // load all logs for SPECIFIC user
-    {
-        // get individual user profile from userMap/map of all users
-        // and returns as User obj
-        User userData = usersMap.get(userName);
-        return userData;
-    }
-    public void removeUser(String userName) throws Exception
-    {
-        // remove val for key 'username', if it exists (remove user data)
-        if(!(usersMap.containsKey(userName)))
-        {
-            throw new Exception("No profile with that name exists");
-        }
-        else {usersMap.remove(userName);}
-    }
-
-    // loads all data for ALL users
-    public HashMap getUsersMap() // NOT FINAL
-    { 
-        // print all user data (of all users) to file?
-        //usersMap.forEach((String, User) -> {getUserData(user)});
-        return this.usersMap;
-    }
-
 }
