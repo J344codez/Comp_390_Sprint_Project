@@ -1,3 +1,6 @@
+package com.example.sprint_1;
+
+
 /*
 Edits:
 Date        Name        Edits
@@ -10,13 +13,13 @@ Date        Name        Edits
  */
 
 
-package com.example.sprint_1;
+
 
 public final class Calculator {
 
     private Calculator() {}             //Avoid instantiation, Calculator object not needed
 
-//-------------------Utilites--------------calc = shortened calculate----------------------------
+    //-------------------Utilites--------------calc = shortened calculate----------------------------
     //BMI = (lbs*703) / inches(height)^2
     public static double calcBmi(double weight, double height) {
         if (height < 1) throw new IllegalArgumentException("Invalid height.");
@@ -30,7 +33,7 @@ public final class Calculator {
 
     //Overloaded calsBurned using steps and activity
     public static int calcCalsBurned(DailyLog.Activity activity, int duration,
-                                         int steps, double weight) {
+                                     int steps, double weight) {
         //Steps = MET * weight (kg) * duration (hours)
         double met = getMet(activity);
         int woSteps = estSteps(activity, duration);
@@ -67,13 +70,13 @@ public final class Calculator {
     public static double getMet(DailyLog.Activity activity) {
         double met = 0;
         switch (activity) {
-            case DailyLog.Activity.CARDIO:
+            case CARDIO:
                 met = 8.0;
                 break;
-            case DailyLog.Activity.CYCLING:
+            case CYCLING:
                 met = 6.0;
                 break;
-            case DailyLog.Activity.WEIGHTS:
+            case WEIGHTS:
                 met = 3.5;
                 break;
         }
@@ -84,10 +87,10 @@ public final class Calculator {
     public static int estSteps(DailyLog.Activity activity, int duration) {
         int rate = 0;            //steps/min
         switch (activity) {
-            case DailyLog.Activity.CARDIO:
+            case CARDIO:
                 rate = 130;
                 break;
-            case DailyLog.Activity.WEIGHTS:
+            case WEIGHTS:
                 rate = 25;
                 break;
         }   //CYCLING = 0

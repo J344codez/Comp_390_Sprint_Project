@@ -36,6 +36,20 @@ printDate(LocalDate): String - use date.format(DateTimeFormatter.ofPattern("MM/d
 calculateBMI(weight, height): double
 getDaysBet(from_LocalDate, to_LocalDate): int
 getWkNum(from_LocalDate, to_LocalDate): int
-
+calCProgress(User): double(%)         //((start_weight - log_weight)/start_weight - goal) * 100
 
 ======================================================================================================
+Class: UserManager              //Manages user operation and intermediary between app and file I/O
+
+//------Attributes
+Map<user_name, User>            //Map to hold <key=username, value=User_object>
+
+//------Methods
+isUser(String username): boolean        //Returns true if user exists
+getUser(String username): User          //Returns the user object mapped to the username
+addUser(User user): void                //Add a new user to the map
+deleteUser(String username): void       //Deletes user mapped to the username
+deleteUser(User user): void             //Deletes the user from the map
+addLogToUser(User user, DailyLog log): void
+
+

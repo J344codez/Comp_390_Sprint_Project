@@ -1,6 +1,8 @@
 package com.example.sprint_1;
 
+
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /*
@@ -10,13 +12,14 @@ Date        Name        Edits
 10/9        Mo          Created class, added attributes
 10/10       Mo          Added core structure - getters/setters, helper methods
 10/12       Mo          Added methods to get first/last log and progress dynamically
+10/17       Mo          Added toString
 
 
  */
 
 
 public class User {
-//--------Attributes - immutable
+    //--------Attributes - immutable
     private final String userName;
     private final LocalDate regDate;
 
@@ -33,9 +36,9 @@ public class User {
 
     List<DailyLog> logs = new ArrayList<>();        //List of daily entries
 
-//----------Primary Constructor - takes regDate
+    //----------Primary Constructor - takes regDate
     public User(String userName, LocalDate regDate, String fName, String lName, int age,
-                    String gender, double height, double startWeight, double targetWeight)
+                String gender, double height, double startWeight, double targetWeight)
     {
         this.userName = userName; this.regDate = regDate;       //Assign immutable
 
@@ -45,7 +48,7 @@ public class User {
         setStartWeight(startWeight); setTargetWeight(targetWeight);
 
     }
-//----------Secondary Constructor - sets regDate to the current day
+    //----------Secondary Constructor - sets regDate to the current day
     public User(String userName, String fName, String lName, int age,
                 String gender, double height, double startWeight, double targetWeight)
     {
@@ -55,7 +58,7 @@ public class User {
 
 
     public void setGender(String gender) {        //Gender name
-        if(fName == null || !List.of("male", "female", "prefer not to answer").contains(fName.toLowerCase()))
+        if(gender == null || !List.of("male", "female", "prefer not to answer").contains(gender.toLowerCase()))
             throw new IllegalArgumentException("Invalid gender option.");                       //Throw exception if selection is out of scope.
         this.gender = gender;
     }
@@ -180,6 +183,27 @@ public class User {
     }
 
 
+    //toString method
+    public String toString() {          //String representation of a user
+        String date = regDate.format(DateTimeFormatter.ofPattern("dd/MM/yy"));
+        int ft = (int)height/12;
+        int in = (int)height%12;
+
+        return String.format(
+                "Username: %s  |  Created: %s%n%n" +
+                        "Name: %s %s  |  Age: %d%n" +
+                        "Gender: %s  |  Height: %d'%d%n%n" +
+                        "Start Weight: %.1f%n" +
+                        "Current Weight: %.1f  |  Weight Goal: %.1f%n%n" +
+                        "Current progress towards goal: %.1f%%",
+
+                getUserName(), getRegDate(),
+                fName, lName, age,
+                gender, ft, in,
+                startWeight,
+                currWeight, targetWeight,
+                getProgress());
+    }
 
 
 }
