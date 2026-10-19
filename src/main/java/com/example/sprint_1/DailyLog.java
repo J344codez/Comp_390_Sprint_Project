@@ -7,16 +7,18 @@ Date        Name        Edits
 10/10       Mo          Created class, defined compareTo method
 10/11       Mo          Added accessors/mutators
                         Added helper method to offload calculations to Calculator
+10/17       Mo          Added toString
 
 
  */
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class DailyLog implements Comparable<DailyLog> {
 
     public enum Activity {CARDIO, CYCLING, WEIGHTS}
-//---------------Attributes of a log--------------------
+    //---------------Attributes of a log--------------------
     private final User user;
 
     private LocalDate date;
@@ -33,20 +35,20 @@ public class DailyLog implements Comparable<DailyLog> {
     private int calsBurned;
     private double bmi;
 
-//----------Primary Constructor - takes optional fields
+    //----------Primary Constructor - takes optional fields
     public DailyLog(User user, LocalDate date, double weight, int steps,
                     int calsIntake, Activity workout, Integer woDuration) {
-                //Required fields
-                if (user == null) throw new IllegalArgumentException("Invalid user.");
-                this.user = user;
-                setLogDate(date);
-                setLogWeight(weight); setLogSteps(steps); setLogCalsConsumed(calsIntake);
-                //Optional fields
-                setActivity(workout); setWoDuration(woDuration);
-                //Calculate BMI and calsBurned with given data.
-                reCal();
+        //Required fields
+        if (user == null) throw new IllegalArgumentException("Invalid user.");
+        this.user = user;
+        setLogDate(date);
+        setLogWeight(weight); setLogSteps(steps); setLogCalsConsumed(calsIntake);
+        //Optional fields
+        setActivity(workout); setWoDuration(woDuration);
+        //Calculate BMI and calsBurned with given data.
+        reCal();
     }
-//----------Secondary Constructor - sets optional fields to null
+    //----------Secondary Constructor - sets optional fields to null
     public DailyLog(User user, LocalDate date, double weight, int steps,
                     int calsIntake) {
         this(user, date, weight, steps, calsIntake, null, null);
@@ -81,7 +83,7 @@ public class DailyLog implements Comparable<DailyLog> {
             throw new IllegalArgumentException("Workout duration greater than 0.");
         this.workoutDuration = woDuration;
     }
-//-----calculated values
+    //-----calculated values
     public void setCalsBurned(int calsBurned) {
         if(calsBurned < 0)                            //Check for negative entries
             throw new IllegalArgumentException("Calories cannot be a negative value.");
@@ -115,12 +117,37 @@ public class DailyLog implements Comparable<DailyLog> {
         setCalsBurned(Calculator.calcCalsBurned(this));     //Calculate calories burned
     }
 
-//-----------Concrete implementation of compareTo()-----------------------------------------------------------
+    //-----------Concrete implementation of compareTo()-----------------------------------------------------------
     @Override
     public int compareTo(DailyLog o) {                //method from Comparable, needed for sorting
-      return  this.getDate().compareTo(o.getDate());
+        return  this.getDate().compareTo(o.getDate());
     }
 
 
+    //--toString for a single log
+    public String toString() {
+        String logDate = date.format(DateTimeFormatter.ofPattern("MM/dd/yy"));
+        String wgt = String.format("%.1f", weight);
+        String bmi = String.format("%.1f", this.bmi);
+        //Date: |Weight(lbs): |Steps: | Calories Intake: Workout: |Duration: |Calories Burned: |BMI:
+        StringBuilder log = new StringBuilder("Date: ").append(logDate).append(" | ");
+        log.append("Weight(lbs): ").append(wgt).append(" | ");
+        log.append("Steps: ").append(steps).append(" | ");
+        log.append("Calories Intake: ").append(calsConsumed).append(" | ");
+        //Optional fields
+        if (workout != null) {
+            int hrs = workoutDuration/60;
+            int mins = workoutDuration%60;
+            String d = String.format("%02d:%02d",hrs, mins);        //hh:mm
+
+            log.append("Workout: ").append(workout).append(" | ");
+            log.append("Duration(hh:mm): ").append(d).append(" | ");
+        }
+        //Cals burned & BMI
+        log.append("Calories Burned: ").append(calsBurned).append(" | ");
+        log.append("BMI: ").append(bmi);
+
+        return log.toString();
+    }
 
 }
